@@ -9,7 +9,12 @@ with open("news_article.txt", "r", encoding="utf-8") as file:
 
 
 def count_specific_word(text, search_word):
-    words = text.lower().split()
+    words = []
+
+    for word in text.lower().split():
+        clean_word = word.strip(string.punctuation)
+        words.append(clean_word)
+
     return words.count(search_word.lower())
 
 
@@ -40,6 +45,8 @@ def calculate_average_word_length(text):
         if clean_word:
             total_length += len(clean_word)
             total_words += 1
+    if total_words == 0:
+        return 0    
 
     return total_length / total_words
 
@@ -64,23 +71,24 @@ def count_sentences(text):
 
     return len(sentences)
 
+if __name__ == "__main__":
 
-while True:
-    word = input("Enter a word to search (or type 'quit' to exit): ")
+    while True:
+        word = input("Enter a word to search (or type 'quit' to exit): ")
 
-    if word.lower() == "quit":
-        break
+        if word.lower() == "quit":
+            break
 
-    count = count_specific_word(article, word)
+        count = count_specific_word(article, word)
 
-    if count == 0:
-        print("Word not found.")
-    else:
-        print("Occurrences:", count)
+        if count == 0:
+            print("Word not found.")
+        else:
+            print("Occurrences:", count)
 
-print("\nText Analysis Results")
-print("----------------------")
-print("Most common word:", identify_most_common_word(article))
-print("Average word length:", calculate_average_word_length(article))
-print("Number of paragraphs:", count_paragraphs(article))
-print("Number of sentences:", count_sentences(article))
+    print("\nText Analysis Results")
+    print("----------------------")
+    print("Most common word:", identify_most_common_word(article))
+    print("Average word length:", calculate_average_word_length(article))
+    print("Number of paragraphs:", count_paragraphs(article))
+    print("Number of sentences:", count_sentences(article))
