@@ -1,16 +1,18 @@
+# Import required modules
 from collections import Counter
 import string
 import re
 
-
+# Open and read the text file
 with open("news_article.txt", "r", encoding="utf-8") as file:
     article = file.read()
 
 
-
+# Count how many times a specific word appears in the text
 def count_specific_word(text, search_word):
     words = []
 
+    # Convert text to lowercase and remove punctuation
     for word in text.lower().split():
         clean_word = word.strip(string.punctuation)
         words.append(clean_word)
@@ -18,7 +20,7 @@ def count_specific_word(text, search_word):
     return words.count(search_word.lower())
 
 
-
+# Find the most frequently occurring word
 def identify_most_common_word(text):
     if text == "":
         return None
@@ -29,7 +31,7 @@ def identify_most_common_word(text):
     return word_counts.most_common(1)[0][0]
 
 
-
+# Calculate the average length of all words in the text
 def calculate_average_word_length(text):
     if text == "":
         return 0
@@ -39,19 +41,21 @@ def calculate_average_word_length(text):
     total_length = 0
     total_words = 0
 
+    # Remove punctuation before calculating word lengths
     for word in words:
         clean_word = word.strip(string.punctuation)
 
         if clean_word:
             total_length += len(clean_word)
             total_words += 1
+
     if total_words == 0:
-        return 0    
+        return 0
 
     return total_length / total_words
 
 
-
+# Count the number of paragraphs in the text
 def count_paragraphs(text):
     if text == "":
         return 1
@@ -61,7 +65,7 @@ def count_paragraphs(text):
     return len(paragraphs)
 
 
-
+# Count the number of sentences using punctuation marks
 def count_sentences(text):
     if text == "":
         return 1
@@ -71,8 +75,11 @@ def count_sentences(text):
 
     return len(sentences)
 
+
+# Run the program
 if __name__ == "__main__":
 
+    # Allow the user to search for words until they choose to quit
     while True:
         word = input("Enter a word to search (or type 'quit' to exit): ")
 
@@ -86,6 +93,7 @@ if __name__ == "__main__":
         else:
             print("Occurrences:", count)
 
+    # Display text analysis results
     print("\nText Analysis Results")
     print("----------------------")
     print("Most common word:", identify_most_common_word(article))
